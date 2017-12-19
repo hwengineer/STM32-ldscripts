@@ -75,7 +75,20 @@ SECTIONS
 			. = ALIGN(4);         /* align */
 			_edata = .;           /* define a global symbol at data end */
 	} > RAM
-	
+	/*--------------------------------------------------------------------------*/
+  /* fast ram data goes into CCRAM */
+	_siccmram = ( _sidata + SIZEOF(.data) );
+
+	.ccmram : AT( _siccmram ) {
+			. = ALIGN(4);
+			_sccmram = .;         /* create a global symbol at ccmram start */
+			*(.ccmram)            /* .ccmram sections */
+			*(.ccmram*)           /* .ccmram* sections */
+
+			. = ALIGN(4);         /* align */
+			_eccmram = .;         /* create a global symbol at ccmram end */
+	} > CCMRAM
+
 	/*--------------------------------------------------------------------------*/
   /* zero initialized data goes to RAM and has to be cleared at startup */
 	 .bss :
