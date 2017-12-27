@@ -12,7 +12,7 @@
 ENTRY(Reset_Handler)
 
 /* calculate the Last RAM address*/
- _estack = ORIGIN(RAM) + LENGTH(RAM);
+ _estack = ORIGIN(RAM) + LENGTH(RAM) - 1;
 
 /* --- Sections --- */
 SECTIONS
@@ -75,7 +75,7 @@ SECTIONS
 			. = ALIGN(4);         /* align */
 			_edata = .;           /* define a global symbol at data end */
 	} > RAM
-	
+
 	/*--------------------------------------------------------------------------*/
   /* zero initialized data goes to RAM and has to be cleared at startup */
 	 .bss :

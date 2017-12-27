@@ -12,7 +12,7 @@
 ENTRY(Reset_Handler)
 
 /* calculate the Last RAM address*/
- _estack = ORIGIN(RAM) + LENGTH(RAM);
+ _estack = ORIGIN(RAM) + LENGTH(RAM) - 1;
 
 /* --- Sections --- */
 SECTIONS
