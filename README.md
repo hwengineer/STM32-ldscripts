@@ -6,7 +6,7 @@ I made a `simple.ld` Linker script which contains only the necessary stuff for l
 It also contains several controller specific linker scripts. The idea behind it is that you tell the compiler to use
 one micorcontroller dependend linker file and the `simple.ld` linker file.
 
-    #==============================================================================#
+    ... in meson.build ...
     # Add linker files
     linkfiles = files(['STM32-ldscripts/STM32F303VC6.ld', 'STM32-ldscripts/simple.ld'])
 
