@@ -1,10 +1,10 @@
 # STM32-ldscripts
 
-In this repo all of the Linker Scripts are stored.
+In this repo all of the linker scripts are stored.
 
 I made a `simple.ld` Linker script which contains only the necessary stuff for linking with the llvm linker (ld.lld).
 It also contains several controller specific linker scripts. The idea behind it is that you tell the compiler to use
-one micorcontroller dependend linker file and the `simple.ld` linker file.
+one microcontroller dependent linker file and the `simple.ld` linker file.
 
     ... in meson.build ...
     # Add linker files
@@ -18,7 +18,7 @@ The benefit of this is that I only have to maintain one linker script and can us
 You can define more specialized linker scripts if needed and use the simple script as a prototype.
 
 ## microcontroller dependend linker file
-In the microcontroller dependend linker file is just the memory layout defined.
+In the microcontroller dependent linker file is just the memory layout defined.
 
     MEMORY{
     	RAM    (xrw)  : ORIGIN = 0x20000000, LENGTH = 20K
@@ -45,7 +45,7 @@ For all Cortex-M microcontroller we have to put the `Interrupt Vector Table` fir
     } > FLASH
     ...
 
-After that we want to store all the programm data. Which is called the `.text` section.
+After that we want to store all the program data. Which is called the `.text` section.
 We also store some `glue` to it. It defines a code region where some `stubs` are stored to translate ARM and Thumb code.
 (We could omit this, the linker would include it anyway. But so we decide a specific region for it)
 
@@ -64,7 +64,7 @@ We also store some `glue` to it. It defines a code region where some `stubs` are
         _etext = .;           /* define end symbol */
     } > FLASH
 
-Also we decide a section, where all read only data is stored. As example all `const` variables.
+Also we define a section, where all read only data is stored. As example all `const` variables.
 
     /* constant data goes into FLASH */
     .rodata : {
@@ -89,17 +89,17 @@ And after that we define specific ARM debug sections. I don't really know how th
          __exidx_end__ = .;  /* define end symbol */
     } > FLASH
 
-Now it gets interessting. I burned alot time to figure this out.
-The llvm linker doesn't implement the same behaviour as the GCC here.
+Now it gets interesting. I burned a lot time to figure this out.
+The llvm linker doesn't implement the same behavior as the GCC here.
 I first had to define the current allocation Address manually with this command.
 
     . = ORIGIN(RAM);
 
 Otherwise the .data section was not set up properly.
 
-The .data section contains all initialisation data of all global variables.
+The .data section contains all initialization data of all global variables.
 A global variable is stored in RAM but it needs to be initialized to its `start` value from somewhere.
-We have to tell the linker to point all references to the variables to RAM but copy the initialised data in flash.
+We have to tell the linker to point all references to the variables to RAM but copy the initialization data in flash.
 
     .data : AT(__exidx_end__) {
         _sdata = .;            /* create a global symbol at data start */
@@ -115,7 +115,7 @@ We have to tell the linker to point all references to the variables to RAM but c
 The `> RAM` copies all references to RAM and also reserve the RAM space for the variables.
 Ant the `AT(__exidx_end__)` command tells the compiler to store the values in Flash after the `__exidx_end__` symbol.
 With the `_sidata = LOADADDR(.data);` we create a hook-symbol so we know where the values are stored in flash.
-In the startup code we now have to copy the initialisation values *by hand*.
+In the startup code we now have to copy the initialization values *by hand*.
 
 At last we define the .bss section.
 
@@ -133,7 +133,7 @@ At last we define the .bss section.
        __bss_end__ = .;      /* symbolname defined by newlib*/
      } > RAM
 
-In this section all (global) variables which are not initialised are stored here.
+In this section all (global) variables which are not initialized are stored here.
 To be C-Standard compliant we have to delete all entries *by hand* in the startup code.
 
 I has a last command at the end of the `simple.ld` script
