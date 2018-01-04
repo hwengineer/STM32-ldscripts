@@ -70,8 +70,8 @@ SECTIONS
   /*--------------------------------------------------------------------------*/
   /* Define RAM Section : only sections who goes to ram after this point */
  . = ORIGIN(RAM); /* for ld.lld it seems to be necessary to define the ram section this way.*/
-                  /* otherwiese, the .data sectin will not defined properly.*/
-                  /* to be precise : the variable are in RAM but the initialisation data would not be defined in flash */
+                  /* otherwise, the .data sectin will not defined properly.*/
+                  /* to be precise : the variable are in RAM but the initialization data would not be defined in flash */
 
  /*--------------------------------------------------------------------------*/
  /* initialized data goes to ram, but must be loaded from flash */
@@ -86,7 +86,7 @@ SECTIONS
      _edata = .;           /* define a global symbol at data end */
   } > RAM
 
-  _sidata = LOADADDR(.data); /* get the start adress of the .data section */
+  _sidata = LOADADDR(.data); /* get the start address of the .data section */
 
   /*--------------------------------------------------------------------------*/
   /* zero initialized data goes to RAM and has to be cleared at startup */
