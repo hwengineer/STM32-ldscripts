@@ -1,7 +1,7 @@
 /******************************************************************************
 	Memory Layout Linker File
 
-	Device : STM32L072CZ
+	Device : STM32L072KZ
 	- Flash       192kB
 	- RAM          20kB
 	- Data EEPROM   6144B

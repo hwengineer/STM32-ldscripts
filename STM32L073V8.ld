@@ -1,14 +1,14 @@
 /******************************************************************************
 	Memory Layout Linker File
 
-	Device : STM32L072CZ
-	- Flash       192kB
+	Device : STM32L073V8
+	- Flash       64kB
 	- RAM          20kB
-	- Data EEPROM   6144B
+	- Data EEPROM   3072B
 ******************************************************************************/
 
 MEMORY{
 	RAM    (xrw)  : ORIGIN = 0x20000000, LENGTH = 20K
-	FLASH  (rx)   : ORIGIN = 0x08000000, LENGTH = 192K
-	EEPROM (xrw)  : ORIGIN = 0x08080000, LENGTH = 6144
+	FLASH  (rx)   : ORIGIN = 0x08000000, LENGTH = 64K
+	EEPROM (xrw)  : ORIGIN = 0x08080000, LENGTH = 3072
 }
