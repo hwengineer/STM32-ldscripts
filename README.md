@@ -8,7 +8,7 @@ one microcontroller dependent linker file and the `simple.ld` linker file.
 
     ... in meson.build ...
     # Add linker files
-    linkfiles = files(['STM32-ldscripts/STM32F303VC6.ld', 'STM32-ldscripts/simple.ld'])
+    linkfiles = files(['STM32-ldscripts/STM32F3/STM32F303VC6.ld', 'STM32-ldscripts/simple.ld'])
 
     foreach linkfile : linkfiles
      linkArgs += ['-Wl,-T,@0@/@1@'.format(meson.current_source_dir(), linkfile)]
@@ -136,7 +136,7 @@ At last we define the .bss section.
 In this section all (global) variables which are not initialized are stored here.
 To be C-Standard compliant we have to delete all entries *by hand* in the startup code.
 
-I has a last command at the end of the `simple.ld` script
+And the last command of `simple.ld` script
 
     .ARM.attributes 0 : { *(.ARM.attributes) }
 
