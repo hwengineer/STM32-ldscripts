@@ -141,3 +141,10 @@ I has a last command at the end of the `simple.ld` script
     .ARM.attributes 0 : { *(.ARM.attributes) }
 
 that should minimize some arm specific section names. So that the obj dump is more readable.
+
+# links
+
+-   [http://salbut.net/public/gcc-pdf/ld.pdf](http://salbut.net/public/gcc-pdf/ld.pdf)
+-   [https://sourceware.org/binutils/docs-2.29/ld/index.html](https://sourceware.org/binutils/docs-2.29/ld/index.html)
+
+-   [http://infocenter.arm.com/help/topic/com.arm.doc.ihi0044f/IHI0044F_aaelf.pdf](http://infocenter.arm.com/help/topic/com.arm.doc.ihi0044f/IHI0044F_aaelf.pdf)
